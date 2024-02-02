@@ -5,7 +5,7 @@ import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { SafeReservation, SafeUser, safeListing } from "@/app/types";
+import { SafeReservation, SafeUser, SafeListing } from "@/app/types";
 import { Listing, Reservation } from "@prisma/client";
 import axios from "axios";
 import {
@@ -27,7 +27,7 @@ const initialDateRange = {
 
 interface ListingClientProps {
   reservations?: SafeReservation[];
-  listing: safeListing & {
+  listing: SafeListing & {
     user: SafeUser;
   };
   currentUser?: SafeUser | null;
@@ -75,7 +75,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
       .then(() => {
         toast.success("Listing Received");
         setDateRange(initialDateRange);
-        router.push('/trips');
+        router.push("/trips");
       })
       .catch(() => {
         toast.error("Something went wrong");
@@ -140,11 +140,9 @@ const ListingClient: React.FC<ListingClientProps> = ({
              md:col-span-3
              "
             >
-              
               <ListingReservation
                 price={listing.price}
                 totalPrice={totalPrice}
-              
                 onChangeDate={(value) => setDateRange(value)}
                 dateRange={dateRange}
                 onSubmit={onCreateReservation}
